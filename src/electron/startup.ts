@@ -1,7 +1,6 @@
 import "reflect-metadata"
 
 import {BrowserWindow, app} from 'electron';
-import {WindowIpcService} from "./ipc";
 import {container, injectable} from "tsyringe";
 import {WindowService} from "./windows";
 import { mainWindowOptions } from "./windows/options";
@@ -11,13 +10,11 @@ export class Startup {
 	win: BrowserWindow | undefined;
 
 	constructor(
-		private readonly windowIpc: WindowIpcService,
 		private readonly windowSrv: WindowService,
 	) {
 	}
 
 	init() {
-		this.windowIpc.init();
 		this.window();
 	}
 

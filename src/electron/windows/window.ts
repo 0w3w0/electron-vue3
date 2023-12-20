@@ -1,14 +1,14 @@
 import { BrowserWindow } from 'electron';
 import { injectable } from 'tsyringe';
 import { WindowOptions } from './options';
-import { ConfigService } from '@electron/configs/config.service';
 import { join } from 'path'
+import { Configuration } from '@electron/configs/config';
 @injectable()
 export class WindowService {
 	private _windows: Map<string, BrowserWindow> = new Map();
 
 	constructor(
-		private config: ConfigService
+		private config: Configuration
 	) {
 	}
 

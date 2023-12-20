@@ -30,7 +30,6 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      "@common": resolve(__dirname, "./src/common"),
       "@renderer": resolve(__dirname, "./src/renderer"),
       "@electron": resolve(__dirname, "./src/electron"),
     }
