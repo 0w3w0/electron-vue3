@@ -1,4 +1,4 @@
-import { Plugin, PluginOption, ViteDevServer } from "vite";
+import { Plugin, ViteDevServer } from "vite";
 import { build } from "esbuild";
 import { spawn, ChildProcess } from "child_process";
 
