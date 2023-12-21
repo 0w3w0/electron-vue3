@@ -7,38 +7,38 @@ import { mainWindowOptions } from "./windows/options";
 
 @injectable()
 export class Startup {
-	win: BrowserWindow | undefined;
+  win: BrowserWindow | undefined;
 
-	constructor(
-		private readonly windowSrv: WindowService,
-	) {
-	}
+  constructor(
+    private readonly windowSrv: WindowService,
+  ) {
+  }
 
-	init() {
-		this.window();
-	}
+  init() {
+    this.window();
+  }
 
-	createMainWin() {
-		this.win = this.windowSrv.createWindow(mainWindowOptions());
-	}
+  createMainWin() {
+    this.win = this.windowSrv.createWindow(mainWindowOptions());
+  }
 
-	window() {
-		app.whenReady().then(() => {
-			this.createMainWin();
-		})
+  window() {
+    app.whenReady().then(() => {
+      this.createMainWin();
+    })
 
-		app.on('activate', () => {
-			if (BrowserWindow.getAllWindows().length === 0) {
-				this.createMainWin()
-			}
-		})
+    app.on('activate', () => {
+      if (BrowserWindow.getAllWindows().length === 0) {
+        this.createMainWin()
+      }
+    })
 
-		app.on('window-all-closed', () => {
-			if (process.platform !== 'darwin') {
-				app.quit();
-			}
-		})
-	}
+    app.on('window-all-closed', () => {
+      if (process.platform !== 'darwin') {
+        app.quit();
+      }
+    })
+  }
 }
 
 const startup = container.resolve(Startup);

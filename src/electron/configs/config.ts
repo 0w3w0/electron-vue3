@@ -4,10 +4,10 @@ import {singleton} from "tsyringe";
 @singleton()
 export class Configuration {
 
-	constructor() {
-	}
+  constructor() {
+  }
 
-	get isDev() {
-		return !app.isPackaged;
-	}
+  get isDev() {
+    return !app.isPackaged;
+  }
 }
