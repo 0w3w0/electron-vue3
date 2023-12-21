@@ -1,7 +1,5 @@
 # Electron + Vue 3 + TypeScript + Vite
 
-https://github.com/0w3w0/electron-vue3.git
-
 1. 克隆项目
 
    ```shell
