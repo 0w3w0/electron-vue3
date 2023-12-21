@@ -1,4 +1,4 @@
-# Vue 3 + TypeScript + Vite
+# Electron + Vue 3 + TypeScript + Vite
 
 1. 开发模式下启动
 
