@@ -2,7 +2,7 @@ import "reflect-metadata"
 
 import {BrowserWindow, app} from 'electron';
 import {container, injectable} from "tsyringe";
-import {WindowService} from "./windows";
+import {WindowManager} from "./windows";
 import { mainWindowOptions } from "./windows/options";
 
 @injectable()
@@ -10,7 +10,7 @@ export class Startup {
   win: BrowserWindow | undefined;
 
   constructor(
-    private readonly windowSrv: WindowService,
+    private readonly windows: WindowManager,
   ) {
   }
 
@@ -19,7 +19,7 @@ export class Startup {
   }
 
   createMainWin() {
-    this.win = this.windowSrv.createWindow(mainWindowOptions());
+    this.win = this.windows.createWindow(mainWindowOptions());
   }
 
   window() {

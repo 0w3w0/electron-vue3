@@ -4,7 +4,7 @@ import { WindowOptions } from './options';
 import { join } from 'path'
 import { Configuration } from '@electron/configs/configuration';
 @injectable()
-export class WindowService {
+export class WindowManager {
   private _windows: Map<string, BrowserWindow> = new Map();
 
   constructor(
