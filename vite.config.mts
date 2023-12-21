@@ -19,7 +19,7 @@ export default defineConfig({
     })),
     electronPlugin({
       entryPoints: ["src/electron/startup.ts"],
-      externals:["electron","fsevents"],
+      externals:["electron"],
       plugins: [
         esbuildDecorators({
           tsconfig: './tsconfig.json',
