@@ -12,15 +12,15 @@ export class WindowManager {
   ) {
   }
 
-  getUrl(sufix?: string) {
+  getUrl(suffix?: string) {
     console.log(this.config.isDev)
     if (this.config.isDev) {
-      if (sufix) return `${process.argv[2]}/#/${sufix}`
+      if (suffix) return `${process.argv[2]}/#/${suffix}`
       return `${process.argv[2]}`;
     }
     let pathIndex = `./renderer/index.html`
-    if (sufix) {
-      pathIndex = `${pathIndex}/#/${sufix}`
+    if (suffix) {
+      pathIndex = `${pathIndex}/#/${suffix}`
     }
     const url = new URL(join('file:', __dirname, pathIndex));
     return url.href
