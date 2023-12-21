@@ -2,7 +2,7 @@ import { BrowserWindow } from 'electron';
 import { injectable } from 'tsyringe';
 import { WindowOptions } from './options';
 import { join } from 'path'
-import { Configuration } from '@electron/configs/config';
+import { Configuration } from '@electron/configs/configuration';
 @injectable()
 export class WindowService {
   private _windows: Map<string, BrowserWindow> = new Map();
