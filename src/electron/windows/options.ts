@@ -27,5 +27,6 @@ export const mainWindowOptions = (): WindowOptions => {
   return {
     key: "main",
     options: opts,
+    suffix: "login"
   }
 }

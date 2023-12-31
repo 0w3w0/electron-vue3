@@ -30,8 +30,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      "@renderer": resolve(__dirname, "./src/renderer"),
-      "@electron": resolve(__dirname, "./src/electron"),
+      "@": resolve(__dirname, "src/"),
     }
   }
 })

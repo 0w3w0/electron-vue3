@@ -1,42 +1,18 @@
-import { BrowserWindow } from 'electron';
-import { injectable } from 'tsyringe';
-import { WindowOptions } from './options';
-import { join } from 'path'
-import { Configuration } from '@electron/configs/configuration';
-@injectable()
-export class WindowManager {
-  private _windows: Map<string, BrowserWindow> = new Map();
+import { BrowserWindow } from "electron";
+import { getUrl } from './helper'
+import { WindowOptions } from "./options";
+const windows = new Map<string, BrowserWindow>();
 
-  constructor(
-    private config: Configuration
-  ) {
+export const createWindow = (opts: WindowOptions) => {
+  if (windows.has(opts.key)) {
+    windows.get(opts.key)?.show()
+    return windows.get(opts.key)
   }
-
-  getUrl(suffix?: string) {
-    console.log(this.config.isDev)
-    if (this.config.isDev) {
-      if (suffix) return `${process.argv[2]}/#/${suffix}`
-      return `${process.argv[2]}`;
-    }
-    let pathIndex = `./renderer/index.html`
-    if (suffix) {
-      pathIndex = `${pathIndex}/#/${suffix}`
-    }
-    const url = new URL(join('file:', __dirname, pathIndex));
-    return url.href
-  }
-
-  createWindow(opts: WindowOptions) {
-    if (this._windows.has(opts.key)) {
-      this._windows.get(opts.key)?.show()
-      return this._windows.get(opts.key)
-    }
-    const win = new BrowserWindow(opts.options)
-    this._windows.set(opts.key, win)
-    win.loadURL(this.getUrl(opts.suffix))
-    win.on('closed', () => {
-      this._windows.delete(opts.key)
-    })
-    return win;
-  }
+  const win = new BrowserWindow(opts.options)
+  windows.set(opts.key, win)
+  win.loadURL(getUrl(opts.suffix))
+  win.on('closed', () => {
+    windows.delete(opts.key)
+  })
+  return win;
 }
