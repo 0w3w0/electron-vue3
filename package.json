@@ -9,13 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "reflect-metadata": "^0.2.1",
-    "rxjs": "^7.8.1",
-    "tsyringe": "^4.8.0",
     "vue": "^3.3.11"
   },
   "devDependencies": {
-    "@anatine/esbuild-decorators": "^0.2.19",
     "@vitejs/plugin-vue": "^4.5.2",
     "electron": "^28.0.0",
     "electron-builder": "^24.9.1",

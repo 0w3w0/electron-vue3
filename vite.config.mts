@@ -3,7 +3,6 @@ import vue from '@vitejs/plugin-vue'
 import { resolve } from 'path';
 import optimizer from "vite-plugin-optimizer";
 import { electronPlugin, getReplacer } from './plugins/electron-plugin'
-import { esbuildDecorators } from '@anatine/esbuild-decorators';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -20,13 +19,8 @@ export default defineConfig({
     electronPlugin({
       entryPoints: ["src/electron/startup.ts"],
       externals:["electron"],
-      plugins: [
-        esbuildDecorators({
-          tsconfig: './tsconfig.json',
-        }),
-      ]
+      plugins: []
     }),
-    
   ],
   resolve: {
     alias: {

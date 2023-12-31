@@ -13,7 +13,7 @@ function createMainWin() {
 
 if (isDev()) {
   // 开发模式下热重载
-  electronReload([join(__dirname,"startup.js")])
+  electronReload([join(__dirname, "startup.js")])
 }
 
 app.whenReady().then(() => {
