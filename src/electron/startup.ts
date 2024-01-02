@@ -7,7 +7,7 @@ let win: BrowserWindow | undefined;
 function createMainWin() {
   win = createWindow(mainWindowOptions());
 }
-console.log('ddd')
+
 app.whenReady().then(() => {
   createMainWin();
 })
