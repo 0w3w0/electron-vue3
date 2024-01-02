@@ -1,4 +1,4 @@
-import { isDev } from "../configs/configuration";
+import { isDev } from "../configs/config";
 import {join} from 'path'
 
 export function getUrl(suffix?: string) {

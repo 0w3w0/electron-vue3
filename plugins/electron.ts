@@ -2,7 +2,7 @@ import { Plugin, ViteDevServer } from "vite";
 import { build } from "esbuild";
 import { spawn, ChildProcess } from "child_process";
 
-export let electronPlugin = (opts: {
+export let electron = (opts: {
 	entryPoints: string[],
 	externals?: string[],
 	plugins?: any[],
@@ -21,7 +21,8 @@ export let electronPlugin = (opts: {
 		});
 	}
 	let electronProcess: ChildProcess;
-	const startElectron = () => {
+	let url = '';
+	const startFunc = () => {
 		if (!server.httpServer) return;
 		const httpServer = server.httpServer;
 		httpServer.once('listening', () => {
@@ -43,10 +44,8 @@ export let electronPlugin = (opts: {
 			const port = address.port;
 			// 判断是否是electron启动
 			if (process.env.ELECTRON_START_URL) return;
-			electronProcess = spawn("electron", [outfile, `${protocol}://${host}:${port}`], {
-				cwd: process.cwd(),
-				stdio: "inherit",
-			});
+			url = `${protocol}://${host}:${port}`
+			electronProcess = runElectron(outfile, url);
 		});
 		httpServer.once('close', () => {
 			console.log("httpServer close")
@@ -62,7 +61,7 @@ export let electronPlugin = (opts: {
 		async configureServer(app: ViteDevServer) {
 			server = app;
 			await buildFunc();
-			startElectron();
+			startFunc();
 		},
 		async buildEnd() {
 			await buildFunc()
@@ -70,34 +69,16 @@ export let electronPlugin = (opts: {
 		async watchChange(id) {
 			if (!id.startsWith(process.cwd() + "/src/electron")) return;
 			await buildFunc();
+			electronProcess?.kill();
+			runElectron(outfile,url);
 		}
 	};
 };
 
-export let getReplacer = (options?: {
-	electronModules?: string[]
-	externalsModules?: string[]
-}) => {
-	if (!options) options = {};
-	let result = {};
-	if (options.externalsModules) {
-		// let externalModels = ["os", "fs", "path"];
-		for (let item of options.externalsModules) {
-			result[item] = () => ({
-				find: new RegExp(`^${item}$`),
-				code: `const ${item} = require('${item}');export { ${item} as default }`,
-			});
-		}
-	}
-	if (options.electronModules) {
-		let electronModules = options.electronModules.join(",");
-		result["electron"] = () => {
-			// let electronModules = ["clipboard", "ipcRenderer", "nativeImage", "shell", "webFrame"].join(",");
-			return {
-				find: new RegExp(`^electron$`),
-				code: `const {${electronModules}} = require('electron');export {${electronModules}}`,
-			};
-		};
-	}
-	return result;
-};
+const runElectron = (outfile:string,url: string): ChildProcess => {
+	return spawn("electron", [outfile, url], {
+		cwd: process.cwd(),
+		stdio: "inherit",
+	});
+}
+

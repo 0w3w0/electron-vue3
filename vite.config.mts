@@ -2,7 +2,7 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { resolve } from 'path';
 import optimizer from "vite-plugin-optimizer";
-import { electronPlugin, getReplacer } from './plugins/electron-plugin'
+import { electron, getReplacer } from './plugins'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -16,7 +16,7 @@ export default defineConfig({
       externalsModules: ["fs"],
       electronModules: ["ipcRenderer"],
     })),
-    electronPlugin({
+    electron({
       entryPoints: ["src/electron/startup.ts"],
       externals:["electron"],
       plugins: []
