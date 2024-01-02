@@ -70,7 +70,7 @@ export let electron = (opts: {
 			if (!id.startsWith(process.cwd() + "/src/electron")) return;
 			await buildFunc();
 			electronProcess?.kill();
-			runElectron(outfile,url);
+			electronProcess = runElectron(outfile,url);
 		}
 	};
 };
