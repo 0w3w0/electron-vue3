@@ -1,8 +1,9 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import { resolve } from 'path';
-import optimizer from "vite-plugin-optimizer";
+import { resolve } from 'path'
+import optimizer from "vite-plugin-optimizer"
 import { electron, getReplacer } from './plugins'
+import { esbuildDecorators } from '@anatine/esbuild-decorators'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -17,9 +18,14 @@ export default defineConfig({
       electronModules: ["ipcRenderer"],
     })),
     electron({
-      entryPoints: ["src/electron/startup.ts"],
+      entryPoints: ["src/electron/main.ts"],
       externals:["electron"],
-      plugins: []
+      plugins: [
+        esbuildDecorators({
+          tsconfig: './tsconfig.json',
+          cwd: process.cwd(),
+        })
+      ]
     }),
   ],
   resolve: {
