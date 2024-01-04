@@ -12,6 +12,8 @@
    cd electron-vue3 && npm i
    ```
 
+   > 需要使用class+DI开发方式切换分支到class分支：git checkout class
+
 3. 开发模式下启动
 
    ```shell
