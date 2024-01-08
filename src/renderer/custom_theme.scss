@@ -1,0 +1,17 @@
+@use "./styles/themes/variables";
+@use "./styles/themes/theme";
+
+$customTheme: (
+      my:(
+              #{variables.$primary}: #5e72e4,
+              #{variables.$secondary}: darken(#5e72e4, 10%),
+              #{variables.$colorBaseBackground}: #dee2e6,
+              #{variables.$colorBaseFont}: #000000,
+              #{variables.$colorFont}: #000,
+              #{variables.$colorFontSecondary}: #666,
+      )
+);
+
+@each $key, $value in $customTheme {
+    @include theme.addTheme($key, $value);
+}

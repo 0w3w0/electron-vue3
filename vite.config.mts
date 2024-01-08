@@ -11,6 +11,13 @@ export default defineConfig({
   build:{
     outDir: "dist/renderer",
   },
+  css:{
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@use "@/renderer/custom_theme.scss";`
+      }
+    }
+  },
   plugins: [
     vue(),
     optimizer(getReplacer({

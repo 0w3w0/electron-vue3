@@ -1,0 +1,12 @@
+@use "./theme";
+@mixin bg-color($color) {
+  @include theme.useTheme {
+    background-color: theme.getVar($color) !important;
+  }
+}
+
+@mixin font-color($color) {
+  @include theme.useTheme {
+    color: theme.getVar($color)
+  }
+}
