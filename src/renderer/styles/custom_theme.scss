@@ -1,5 +1,5 @@
 @use "themes/variables";
-@use "themes/theme";
+@use "themes/core";
 
 $customTheme: (
       custom:(
@@ -12,6 +12,4 @@ $customTheme: (
       )
 );
 
-@each $key, $value in $customTheme {
-    @include theme.addTheme($key, $value);
-}
+@include core.addTheme($customTheme)
