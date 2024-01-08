@@ -17,7 +17,6 @@
     @include mixins.bg-color(variables.$secondary);
   }
 
-  // 点击态
   &:active {
     @include mixins.bg-color(variables.$primary);
   }

@@ -21,8 +21,8 @@ $theme-map: null;
   @return map-get($theme-map, $key);
 }
 
-@mixin addTheme($theme-name, $theme-map) {
-  $themes: map-merge($themes, ($theme-name: $theme-map)) !global;
+@mixin addTheme($themeMap) {
+  $themes: map-merge($themes, $themeMap) !global;
 }
 
 
