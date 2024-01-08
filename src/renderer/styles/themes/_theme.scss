@@ -8,15 +8,14 @@ $themes:(
 
 @mixin useTheme(){
   @each $theme-name, $theme-map in $themes {
-    //!global 把局部变量强升为全局变量
     $theme-map: $theme-map !global;
-    //判断html的data-theme的属性值
-    //& sass嵌套里的父容器标识
     [data-theme="#{$theme-name}"] & {
       @content;
     }
   }
 }
+
+$theme-map: null;
 
 @function getVar($key) {
   @return map-get($theme-map, $key);
