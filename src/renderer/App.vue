@@ -1,29 +1,68 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+const changeTheme = (themeName:string) => {
+  const html = document.querySelector('html')
+  if (!html) return
+  const theme = html.getAttribute('data-theme')
+  if (theme === 'dark') {
+    html.setAttribute('data-theme', themeName)
+  } else {
+    html.setAttribute('data-theme', themeName)
+  }
+}
+
+
 </script>
 
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+  <div class="container">
+    <button @click="changeTheme('dark')" class="btn">黑色主题</button>
+    <button @click="changeTheme('light')" class="btn">白色主题</button>
+    <button @click="changeTheme('my')" class="btn">自定义主题</button>
+    <!--    <a href="https://vitejs.dev" target="_blank">-->
+    <!--      <img src="/vite.svg" class="logo" alt="Vite logo" />-->
+    <!--    </a>-->
+    <!--    <a href="https://vuejs.org/" target="_blank">-->
+    <!--      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />-->
+    <!--    </a>-->
   </div>
-  <HelloWorld msg="Electron +Vite + Vue" />
+<!--    <HelloWorld msg="Electron +Vite + Vue" />-->
 </template>
 
-<style scoped>
+<style  lang="scss">
+@use "./styles/themes/mixins";
+@use "./styles/themes/variables";
+@use "./styles/components/button";
+
+.btn {
+  @include button.button;
+}
+
+button + button {
+  margin-left: 1em;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  transition: background-color 1s;
+  @include mixins.bg-color(variables.$colorBaseBackground);
+  @include mixins.font-color(variables.$colorFont);
+}
+
+
 .logo {
   height: 6em;
   padding: 1.5em;
   will-change: filter;
   transition: filter 300ms;
 }
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
+
 .logo.vue:hover {
   filter: drop-shadow(0 0 2em #42b883aa);
 }

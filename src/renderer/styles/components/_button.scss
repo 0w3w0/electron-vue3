@@ -1,0 +1,24 @@
+@use "../themes/mixins";
+@use "../themes/variables";
+
+@mixin button {
+  border: none;
+  padding: 8px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border-radius: 6px;
+  @include mixins.bg-color(variables.$primary);
+  @include mixins.font-color(variables.$colorBaseFont);
+
+  &:hover {
+    @include mixins.bg-color(variables.$secondary);
+  }
+
+  // 点击态
+  &:active {
+    @include mixins.bg-color(variables.$primary);
+  }
+}

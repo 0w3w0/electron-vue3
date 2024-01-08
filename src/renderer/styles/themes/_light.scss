@@ -1,0 +1,11 @@
+@use "./variables";
+
+// light.scss
+$colors: (
+        #{variables.$primary}: lighten(#BB86FC, 10%),
+        #{variables.$secondary}: darken(#BB86FC, 10%),
+        #{variables.$colorBaseBackground}: #FFFFFF,
+        #{variables.$colorBaseFont}: #000000,
+        #{variables.$colorFont}: #000,
+        #{variables.$colorFontSecondary}: #666,
+)
