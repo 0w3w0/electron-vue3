@@ -2,7 +2,7 @@
 @use "themes/theme";
 
 $customTheme: (
-      my:(
+      custom:(
               #{variables.$primary}: #5e72e4,
               #{variables.$secondary}: darken(#5e72e4, 10%),
               #{variables.$colorBaseBackground}: #dee2e6,

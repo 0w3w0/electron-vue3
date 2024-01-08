@@ -15,9 +15,9 @@ const changeTheme = (themeName:string) => {
 
 <template>
   <div class="container">
-    <button @click="changeTheme('dark')" class="btn">黑色主题</button>
-    <button @click="changeTheme('light')" class="btn">白色主题</button>
-    <button @click="changeTheme('my')" class="btn">自定义主题</button>
+    <button @click="changeTheme('dark')" class="app-button">黑色主题</button>
+    <button @click="changeTheme('light')" class="app-button">白色主题</button>
+    <button @click="changeTheme('custom')" class="app-button">自定义主题</button>
   </div>
 </template>
 
@@ -25,10 +25,6 @@ const changeTheme = (themeName:string) => {
 @use "./styles/themes/mixins";
 @use "./styles/themes/variables";
 @use "./styles/components/button";
-
-.btn {
-  @include button.button;
-}
 
 button + button {
   margin-left: 1em;
@@ -43,7 +39,6 @@ button + button {
   @include mixins.bg-color(variables.$colorBaseBackground);
   @include mixins.font-color(variables.$colorFont);
 }
-
 
 .logo {
   height: 6em;
