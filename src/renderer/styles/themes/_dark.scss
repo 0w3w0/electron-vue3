@@ -1,0 +1,10 @@
+@use "./variables";
+
+$colors: (
+        #{variables.$primary}: #BB86FC,
+        #{variables.$secondary}: darken(#BB86FC, 10%),
+        #{variables.$colorBaseBackground}: #292929,
+        #{variables.$colorBaseFont}: #000000,
+        #{variables.$colorFont}: #D8D8D8,
+        #{variables.$colorFontSecondary}: #666,
+);

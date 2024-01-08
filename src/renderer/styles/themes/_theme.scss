@@ -1,0 +1,29 @@
+@use './dark';
+@use './light';
+
+$themes:(
+        dark: dark.$colors,
+        light: light.$colors
+);
+
+@mixin useTheme(){
+  @each $theme-name, $theme-map in $themes {
+    $theme-map: $theme-map !global;
+    [data-theme="#{$theme-name}"] & {
+      @content;
+    }
+  }
+}
+
+$theme-map: null;
+
+@function getVar($key) {
+  @return map-get($theme-map, $key);
+}
+
+@mixin addTheme($theme-name, $theme-map) {
+  $themes: map-merge($themes, ($theme-name: $theme-map)) !global;
+}
+
+
+

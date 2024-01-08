@@ -2,19 +2,23 @@
   "name": "electron-vue3",
   "private": true,
   "version": "0.0.0",
-  "main": "dist/startup.js",
+  "main": "dist/main.js",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build && electron-builder build --publish=never",
     "preview": "vite preview"
   },
   "dependencies": {
+    "reflect-metadata": "^0.2.1",
+    "tsyringe": "^4.8.0",
     "vue": "^3.3.11"
   },
   "devDependencies": {
+    "@anatine/esbuild-decorators": "^0.2.19",
     "@vitejs/plugin-vue": "^4.5.2",
     "electron": "^28.0.0",
     "electron-builder": "^24.9.1",
+    "sass": "^1.69.7",
     "typescript": "^5.2.2",
     "vite": "^5.0.8",
     "vite-plugin-optimizer": "^1.4.2",
