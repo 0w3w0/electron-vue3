@@ -1,7 +1,7 @@
 @use "../themes/mixins";
 @use "../themes/variables";
 
-@mixin button {
+.app-button {
   border: none;
   padding: 8px 10px;
   text-align: center;
