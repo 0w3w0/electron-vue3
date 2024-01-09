@@ -15,6 +15,7 @@ export class App {
     app.whenReady().then(() => {
       this.createMainWin();
     })
+
     app.on('activate', () => {
       if (BrowserWindow.getAllWindows().length === 0) {
         this.createMainWin()
