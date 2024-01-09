@@ -18,6 +18,11 @@ export default defineConfig({
       }
     }
   },
+  server:{
+    hmr:{
+      overlay:false // windows下不显示错误提示
+    }
+  },
   plugins: [
     vue(),
     optimizer(getReplacer({
