@@ -26,6 +26,7 @@ export default defineConfig({
     })),
     electron({
       entryPoints: ["src/electron/main.ts"],
+      outfile: "dist/main.js",
       externals:["electron"],
       plugins: [
         esbuildDecorators({

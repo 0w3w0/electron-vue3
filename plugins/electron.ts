@@ -2,25 +2,38 @@ import { Plugin, ViteDevServer } from "vite";
 import { build } from "esbuild";
 import { spawn, ChildProcess } from "child_process";
 
-export let electron = (opts: {
+export interface PluginOptions {
 	entryPoints: string[],
 	externals?: string[],
 	plugins?: any[],
-	outfile?: string,
-}): Plugin => {
-	let server: ViteDevServer;
-	const outfile = opts.outfile || "./dist/startup.js";
-	const buildFunc = async () => {
-		await build({
-			entryPoints: opts.entryPoints,
-			bundle: true,
-			platform: "node",
-			outfile: outfile,
-			external: opts?.externals,// 排除打包的模块
-			plugins: opts?.plugins,
-		});
-	}
+	outfile: string,
+}
+
+export let electron = (opts: PluginOptions): Plugin[] => {
+	return [devServer(opts), prodBuild(opts)]
+};
+
+const runElectron = (outfile:string,url: string): ChildProcess => {
+	return spawn("electron", [outfile, url], {
+		cwd: process.cwd(),
+		stdio: "inherit",
+	});
+}
+
+const buildFunc = async (opts:PluginOptions) => {
+	await build({
+		entryPoints: opts.entryPoints,
+		bundle: true,
+		platform: "node",
+		outfile: opts.outfile,
+		external: opts?.externals,// 排除打包的模块
+		plugins: opts?.plugins,
+	});
+}
+
+const devServer = (opts:PluginOptions):Plugin=>{
 	let electronProcess: ChildProcess;
+	let server: ViteDevServer;
 	let url = '';
 	const startFunc = () => {
 		if (!server.httpServer) return;
@@ -45,7 +58,7 @@ export let electron = (opts: {
 			// 判断是否是electron启动
 			if (process.env.ELECTRON_START_URL) return;
 			url = `${protocol}://${host}:${port}`
-			electronProcess = runElectron(outfile, url);
+			electronProcess = runElectron(opts.outfile, url);
 		});
 		httpServer.once('close', () => {
 			console.log("httpServer close")
@@ -56,29 +69,34 @@ export let electron = (opts: {
 			electronProcess?.kill();
 		})
 	}
-	return {
-		name: "electron-plugin",
+	return  {
+		name: "electron-dev-server",
+		apply: 'serve',
 		async configureServer(app: ViteDevServer) {
 			server = app;
-			await buildFunc();
+			await buildFunc(opts);
 			startFunc();
-		},
-		async buildEnd() {
-			await buildFunc()
 		},
 		async watchChange(id) {
 			if (!id.startsWith(process.cwd() + "/src/electron")) return;
-			await buildFunc();
+			await buildFunc(opts);
 			electronProcess?.kill();
-			electronProcess = runElectron(outfile,url);
+			electronProcess = runElectron(opts.outfile,url);
 		}
-	};
-};
-
-const runElectron = (outfile:string,url: string): ChildProcess => {
-	return spawn("electron", [outfile, url], {
-		cwd: process.cwd(),
-		stdio: "inherit",
-	});
+	}
 }
+
+const prodBuild = (opts:PluginOptions):Plugin=>{
+	return {
+		name: "electron-prod-build",
+		apply: 'build',
+		async buildEnd() {
+			await buildFunc(opts)
+		}
+	}
+}
+
+
+
+
 
