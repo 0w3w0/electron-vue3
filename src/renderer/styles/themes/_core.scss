@@ -1,14 +1,15 @@
-@use './dark';
-@use './light';
+@use "./dark";
+@use "./light";
 
-$themes:(
+$themes: (
         dark: dark.$colors,
         light: light.$colors
 );
 
-@mixin useTheme(){
+@mixin useTheme() {
   @each $theme-name, $theme-map in $themes {
     $theme-map: $theme-map !global;
+
     [data-theme="#{$theme-name}"] & {
       @content;
     }
@@ -24,6 +25,3 @@ $theme-map: null;
 @mixin addTheme($themeMap) {
   $themes: map-merge($themes, $themeMap) !global;
 }
-
-
-

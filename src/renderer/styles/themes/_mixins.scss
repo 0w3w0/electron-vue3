@@ -1,4 +1,5 @@
 @use "./core";
+
 @mixin bg-color($color) {
   @include core.useTheme {
     background-color: core.getVar($color) !important;
@@ -7,6 +8,6 @@
 
 @mixin font-color($color) {
   @include core.useTheme {
-    color: core.getVar($color)
+    color: core.getVar($color);
   }
 }
