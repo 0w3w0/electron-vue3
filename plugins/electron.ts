@@ -95,7 +95,7 @@ const devServer = (opts: PluginOptions): Plugin => {
             await buildFunc(opts);
             startFunc();
         },
-        async watchChange(id) {
+        watchChange: async (id) => {
             if (!id.startsWith(process.cwd() + "/src/electron")) return;
             await buildFunc(opts);
             killElectronProcess(electronProcess);
@@ -108,7 +108,7 @@ const prodBuild = (opts: PluginOptions): Plugin => {
     return {
         name: "electron-prod-build",
         apply: 'build',
-        async buildEnd() {
+        buildEnd: async () => {
             await buildFunc(opts)
         }
     }
