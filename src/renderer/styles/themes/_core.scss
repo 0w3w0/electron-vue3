@@ -2,8 +2,8 @@
 @use "./light";
 
 $themes: (
-  dark: dark.$colors,
-  light: light.$colors
+        dark: dark.$colors,
+        light: light.$colors
 );
 
 @mixin useTheme() {

@@ -1,4 +1,5 @@
 @use "./core";
+
 @mixin bg-color($color) {
   @include core.useTheme {
     background-color: core.getVar($color) !important;
