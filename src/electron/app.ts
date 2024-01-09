@@ -2,6 +2,7 @@ import { BrowserWindow, app } from "electron";
 import { WindowManager } from "./windows";
 import { mainWindowOptions } from "./windows/options";
 import { injectable } from "tsyringe";
+import * as os from "os";
 
 @injectable()
 export class App {
@@ -21,9 +22,9 @@ export class App {
         this.createMainWin()
       }
     })
-    
+
     app.on('window-all-closed', () => {
-      if (process.platform !== 'darwin') {
+      if (os.platform() !== 'darwin') {
         app.quit();
       }
     })
