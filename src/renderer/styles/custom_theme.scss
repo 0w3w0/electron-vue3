@@ -2,14 +2,14 @@
 @use "themes/core";
 
 $customTheme: (
-      custom:(
-              #{variables.$primary}: #5e72e4,
-              #{variables.$secondary}: darken(#5e72e4, 10%),
-              #{variables.$colorBaseBackground}: #dee2e6,
-              #{variables.$colorBaseFont}: #000000,
-              #{variables.$colorFont}: #000,
-              #{variables.$colorFontSecondary}: #666,
+      custom: (
+            #{variables.$primary}: #5e72e4,
+            #{variables.$secondary}: darken(#5e72e4, 10%),
+            #{variables.$colorBaseBackground}: #dee2e6,
+            #{variables.$colorBaseFont}: #000000,
+            #{variables.$colorFont}: #000,
+            #{variables.$colorFontSecondary}: #666
       )
 );
 
-@include core.addTheme($customTheme)
+@include core.addTheme($customTheme);

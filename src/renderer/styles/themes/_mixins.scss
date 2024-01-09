@@ -7,6 +7,6 @@
 
 @mixin font-color($color) {
   @include core.useTheme {
-    color: core.getVar($color)
+    color: core.getVar($color);
   }
 }
