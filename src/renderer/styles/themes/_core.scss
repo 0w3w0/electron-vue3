@@ -19,7 +19,7 @@ $themes: (
 $theme-map: null;
 
 @function getVar($key) {
-  @return map-get($theme-map, $key);
+  @return var(--#{$key}, map-get($theme-map, $key));
 }
 
 @mixin addTheme($themeMap) {
