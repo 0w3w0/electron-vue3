@@ -1,9 +1,6 @@
 @use "themes/variables";
 @use "themes/core";
 
-// css variables 生成
-@include core.createCssVars();
-
 // 自定义主题
 $customTheme: (
         custom: (
@@ -18,3 +15,6 @@ $customTheme: (
 
 // 应用自定义主题
 @include core.addTheme($customTheme);
+
+// css variables 生成
+@include core.createCssVars();
