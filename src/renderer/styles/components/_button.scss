@@ -8,10 +8,10 @@
   text-decoration: none;
   display: inline-block;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
   border-radius: 6px;
   @include mixins.bg-color(variables.$primary);
-  @include mixins.font-color(variables.$colorBaseFont);
+  @include mixins.font-color(variables.$colorFont);
 
   &:hover {
     @include mixins.bg-color(variables.$secondary);

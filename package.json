@@ -11,7 +11,8 @@
   "dependencies": {
     "reflect-metadata": "^0.2.1",
     "tsyringe": "^4.8.0",
-    "vue": "^3.4.8"
+    "vue": "^3.4.8",
+    "vue-router": "^4.2.5"
   },
   "devDependencies": {
     "@anatine/esbuild-decorators": "^0.2.19",
