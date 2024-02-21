@@ -1,6 +1,25 @@
 import 'reflect-metadata';
-import { container } from "tsyringe";
-import { App } from "./app";
+import { BrowserWindow, app } from 'electron';
+import * as os from 'os';
+import { createMainWindow } from './windows';
+let mainWindow: BrowserWindow | null;
 
-const app = container.resolve(App)
-app.run()
+function createWin() {
+  mainWindow = createMainWindow();
+}
+
+app.whenReady().then(() => {
+  createWin()
+})
+
+app.on('activate', () => {
+  if (BrowserWindow.getAllWindows().length === 0) {
+    createWin()
+  }
+})
+
+app.on('window-all-closed', () => {
+  if (os.platform() !== 'darwin') {
+    app.quit();
+  }
+})
