@@ -11,13 +11,6 @@ export default defineConfig({
   build:{
     outDir: "dist/renderer",
   },
-  css:{
-    preprocessorOptions: {
-      scss: {
-        additionalData: `@use "@/renderer/styles/custom_theme.scss";`
-      }
-    }
-  },
   server:{
     hmr:{
       overlay:false // windows下不显示错误提示
@@ -43,7 +36,9 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      "@": resolve(__dirname, "src/"),
+      "@renderer": resolve(__dirname, "src/renderer/"),
+      "@electron": resolve(__dirname, "src/electron/"),
+      "@libs": resolve(__dirname, "src/libs/"),
     }
   }
 })

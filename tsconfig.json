@@ -25,9 +25,12 @@
 
     "baseUrl": ".",
     "paths": {
-      "@/*":["src/*"],
+      "@renderer/*":["src/renderer/*"],
+      "@electron/*":["src/electron/*"],
+      "@libs/*":["src/libs/*"],
     }
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "exclude": ["src/**/*.spec.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
