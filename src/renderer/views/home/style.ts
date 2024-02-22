@@ -1,6 +1,6 @@
-import { createStyle } from '@libs/jss/core';
-import { useToken } from '@renderer/theme';
-import { FullToken } from '@renderer/theme/interface';
+import { createStyle } from "@libs/jss";
+import { useToken } from "@renderer/theme";
+import { FullToken } from "@renderer/theme/interface";
 
 const genHomeStyle = (token:FullToken) => {
   return {
