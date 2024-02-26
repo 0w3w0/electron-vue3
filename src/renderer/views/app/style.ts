@@ -1,12 +1,15 @@
+import { useToken } from "@renderer/theme";
 import { createStyle } from "cinjs";
 
 export const useMainStyle = () => {
+  const token = useToken();
   return createStyle(() => ({
     '.home':{
       display: 'flex',
       height: '100vh',
       '-webkit-app-region': 'drag',
-      backgroundColor: '#f0f0f0',
+      backgroundColor: token.value.background,
+      alignItems: 'flex-start',
     }
-  }));
+  }),{update:true});
 }

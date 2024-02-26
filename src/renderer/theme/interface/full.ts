@@ -1,5 +1,6 @@
 export interface ColorPrimaryToken {
   primary: string;
+  background: string;
 }
 export interface ColorSecondaryToken {}
 
