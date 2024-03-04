@@ -1,7 +1,7 @@
-import { createStyle } from "cinjs";
+import { cssinjs } from "./theme/cssinjs";
 
 const useGlobalStyles = () => {
-  return createStyle(() => ({
+  return cssinjs.createStyle(() => ({
     '::view-transition-old(root),::view-transition-new(root)':{
       animation: 'none',
       mixBlendMode: 'normal',
@@ -18,7 +18,7 @@ const useGlobalStyles = () => {
     '::view-transition-new(root)':{
       zIndex: 1,
     },
-  }), { scope: "global"});
+  }));
 };
 
 export default useGlobalStyles;

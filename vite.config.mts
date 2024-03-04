@@ -22,16 +22,16 @@ export default defineConfig({
       electronModules: ["ipcRenderer"],
     })),
     electron({
-      entryPoints: ["src/electron/main.ts"],
+      entryPoints: ["electron/main.ts"],
       outfile: "dist/main.js",
       externals:["electron"]
     }),
   ],
   resolve: {
     alias: {
-      "@renderer": resolve(__dirname, "src/renderer/"),
-      "@electron": resolve(__dirname, "src/electron/"),
-      "@libs": resolve(__dirname, "src/libs/"),
+      "@": resolve(__dirname, "src"),
+      "@electron": resolve(__dirname, "electron"),
+      "@libs": resolve(__dirname, "libs"),
     }
   }
 })

@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { useToken } from '@renderer/theme';
-import { useMainStyle, useTheme } from './style';
-import { updateStyle } from 'cinjs';
-const mainStyle = useMainStyle();
-const token = useToken();
+import { cssinjs } from '@/theme';
+import { useAppStyle, useTheme } from './style';
+import Button from '@/components/button/Button.vue';
 
+const styles = useAppStyle();
+const themeToken = cssinjs.theme;
 const onClick = (event: MouseEvent) => {
   const x = event.clientX;
   const y = event.clientY;
@@ -14,22 +14,22 @@ const onClick = (event: MouseEvent) => {
   );
   useTheme(x, y, endRadius, (theme) => {
     if (theme === 'dark') {
-      token.value.background = '#000';
+      themeToken.background = '#000';
     } else {
-      token.value.background = '#fff';
+      themeToken.background = '#fff';
     }
-    updateStyle();
+    cssinjs.updateTheme(themeToken);
   });
 };
 </script>
 
 <template>
-  <div :class="mainStyle">
-    <button @click="onClick" class="btn">Theme</button>
+  <div :class="styles.wrapper">
+    <Button class="btn" @click="onClick">Theme</Button>
   </div>
 </template>
 
-<style lang="scss">
+<style>
 .btn {
   position: absolute;
   bottom: 20px;

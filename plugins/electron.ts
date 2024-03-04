@@ -94,7 +94,7 @@ const devServer = (opts: PluginOptions): Plugin => {
       startFunc();
     },
     watchChange: async (id) => {
-      if (!id.startsWith(process.cwd() + '/src/electron')) return;
+      if (!id.startsWith(process.cwd() + '/electron')) return;
       await buildFunc(opts);
       killElectronProcess(electronProcess);
       electronProcess = runElectron(opts.outfile, url);

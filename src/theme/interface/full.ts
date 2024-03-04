@@ -4,4 +4,6 @@ export interface ColorPrimaryToken {
 }
 export interface ColorSecondaryToken {}
 
-export interface FullToken extends ColorPrimaryToken, ColorSecondaryToken{}
+export interface FullToken extends ColorPrimaryToken, ColorSecondaryToken {}
+
+

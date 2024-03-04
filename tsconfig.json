@@ -25,9 +25,9 @@
 
     "baseUrl": ".",
     "paths": {
-      "@renderer/*":["src/renderer/*"],
-      "@electron/*":["src/electron/*"],
-      "@libs/*":["src/libs/*"],
+      "@/*":["src/*"],
+      "@electron/*":["electron/*"],
+      "@libs/*":["libs/*"],
     }
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],

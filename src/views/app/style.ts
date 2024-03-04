@@ -1,17 +1,15 @@
-import { useToken } from "@renderer/theme";
-import { createStyle } from "cinjs";
+import { cssinjs } from "@/theme";
 
-export const useMainStyle = () => {
-  const token = useToken();
-  return createStyle(() => ({
-    '.home':{
+export const useAppStyle = ()=>{
+  return cssinjs.createStyle('app',(theme)=>({
+    wrapper:{
       display: 'flex',
       height: '100vh',
       '-webkit-app-region': 'drag',
-      backgroundColor: token.value.background,
+      backgroundColor: theme.background,
       alignItems: 'flex-start',
     }
-  }),{update:true});
+  }))
 }
 
 export function useTheme(x:number,y:number,endRadius:number,fn:(theme:string)=>void) {
