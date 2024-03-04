@@ -12,4 +12,5 @@ export interface CacheValue {
   element: HTMLStyleElement;
   styleFunc: Function;
   scoped: boolean;
+  updated: boolean;
 }

@@ -4,6 +4,6 @@
   <router-view />
 </template>
 
-<style>
+<style scoped>
 
 </style>
