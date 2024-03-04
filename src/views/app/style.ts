@@ -1,7 +1,7 @@
 import { cssinjs } from "@/theme";
 
 export const useAppStyle = ()=>{
-  return cssinjs.createStyle('app',(theme)=>({
+  return cssinjs.createStyle('App',({theme})=>({
     wrapper:{
       display: 'flex',
       height: '100vh',

@@ -22,22 +22,26 @@ export class CSSinJS<T = any> {
   }
 
   createStyle<C extends CSSObject>(
-    componentName: string,
+    key: string,
     styleFn: StyleFn<C, T>,
-    opts:Partial<{
-      scoped: boolean;
-      updated: boolean;
-    }>
   ): Record<keyof ReturnType<StyleFn<C, T>>, string> {
-    opts??={};
-    opts.scoped??=true;
-    opts.updated??=true;
-    const cacheValue = this.cache.get(componentName);
+    let scoped = true;
+    let updated = true;
+    const args = {
+      theme: this._theme,
+      update: (update: boolean) => {
+        updated = update;
+      },
+      scoped: (scope: boolean) => {
+        scoped = scope;
+      },
+    };
+    const cssObj = styleFn(args);
+    const cacheValue = this.cache.get(key);
     if (cacheValue) {
       return cacheValue.classObject;
     }
-    const classHash = `css-${murmurhash3(componentName)}`;
-    const cssObj = styleFn(this.theme);
+    const classHash = `css-${murmurhash3(key)}`;
     const keys = Object.keys(cssObj) as Array<keyof C>;
     const classObj: Record<keyof C, string> = {} as any;
     keys.forEach((key) => {
@@ -47,17 +51,19 @@ export class CSSinJS<T = any> {
       }
       classObj[key] = `${classHash} ${cls}`;
     });
-    const cssText = parseRule(classHash, cssObj, opts.scoped);
+    const cssText = parseRule(classHash, cssObj, scoped);
     const element = createStyleSheet(classHash, cssText);
-    const newCache = {
+    const newCache: CacheValue = {
       classHash,
       classObject: classObj,
-      element,
-      styleFunc: styleFn,
-      scoped:opts.scoped,
-      updated:opts.updated,
+      scoped,
+      updated,
     };
-    this.cache.set(componentName, newCache);
+    if (updated) {
+      newCache.element = element;
+      newCache.styleFunc = styleFn;
+    }
+    this.cache.set(key, newCache);
     return classObj;
   }
 
@@ -70,9 +76,9 @@ export class CSSinJS<T = any> {
     this.themeHash = themeHash;
     this.cache.forEach((cache) => {
       if (cache.updated) {
-        const cssObj = cache.styleFunc(this._theme);
+        const cssObj = cache.styleFunc!({ theme });
         const cssText = parseRule(cache.classHash, cssObj, cache.scoped);
-        cache.element.innerHTML = cssText;
+        cache.element!.innerHTML = cssText;
       }
     });
   }
