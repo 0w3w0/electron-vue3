@@ -1,6 +1,6 @@
 import { createStyleSheet } from './internal/dom';
 import { parseRule } from './internal/rule';
-import { CSSObject, CacheValue, StyleFn } from './type';
+import { CSSObject, CacheValue, StyleFn } from './types';
 import { murmurhash3 } from './utils/hash';
 import { hyphenateStyleName } from './utils/hyphenate';
 
@@ -24,7 +24,9 @@ export class CSSinJS<T = any> {
   createStyle<C extends CSSObject>(
     key: string,
     styleFn: StyleFn<C, T>,
-  ): Record<keyof ReturnType<StyleFn<C, T>>, string> {
+  ): Record<keyof ReturnType<StyleFn<C, T>>, string> & {
+    classHash: string;
+  } {
     let scoped = true;
     let updated = true;
     const args = {
@@ -43,13 +45,15 @@ export class CSSinJS<T = any> {
     }
     const classHash = `css-${murmurhash3(key)}`;
     const keys = Object.keys(cssObj) as Array<keyof C>;
-    const classObj: Record<keyof C, string> = {} as any;
+    const classObj = {
+      classHash,
+    } as any;
     keys.forEach((key) => {
       let cls = hyphenateStyleName(key as string);
       if (cls[0] === '.') {
         cls = cls.slice(1);
       }
-      classObj[key] = `${classHash} ${cls}`;
+      classObj[key] = cls;
     });
     const cssText = parseRule(classHash, cssObj, scoped);
     const element = createStyleSheet(classHash, cssText);
