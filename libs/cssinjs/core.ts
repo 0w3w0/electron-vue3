@@ -2,7 +2,7 @@ import { createStyleSheet } from './internal/dom';
 import { parseRule } from './internal/rule';
 import { CSSObject, CacheValue, StyleFn } from './types';
 import { murmurhash3 } from './utils/hash';
-import { hyphenateStyleName } from './utils/hyphenate';
+import { hyphenateClassName } from './utils/hyphenate';
 
 export class CSSinJS<T = any> {
   private cache: Map<string, CacheValue> = new Map();
@@ -49,7 +49,7 @@ export class CSSinJS<T = any> {
       classHash,
     } as any;
     keys.forEach((key) => {
-      let cls = hyphenateStyleName(key as string);
+      let cls = hyphenateClassName(key as string);
       if (cls[0] === '.') {
         cls = cls.slice(1);
       }
