@@ -24,7 +24,7 @@ const onClick = (event: MouseEvent) => {
 </script>
 
 <template>
-  <div :class="styles.wrapper">
+  <div :class="[styles.classHash,styles.wrapper]">
     <Button class="btn" @click="onClick">Theme</Button>
   </div>
 </template>
