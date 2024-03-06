@@ -3,7 +3,6 @@ import { build } from 'esbuild';
 import { exec, ChildProcess } from 'child_process';
 import { spawn } from 'cross-spawn';
 import * as os from 'os';
-import * as fs from 'fs';
 
 export interface PluginOptions {
   main: {
