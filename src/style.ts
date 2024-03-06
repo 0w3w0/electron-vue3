@@ -1,7 +1,7 @@
 import { cssinjs } from './theme/cssinjs';
 
 const useGlobalStyles = () => {
-  return cssinjs.createStyle('GlobalTransform', ({update,scoped}) => {
+  return cssinjs.createStyle('GlobalStyle', ({update,scoped}) => {
     update(false);
     scoped(false);
     return {
