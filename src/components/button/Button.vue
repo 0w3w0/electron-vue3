@@ -5,7 +5,7 @@ const styles = useButtonStyles();
 </script>
 
 <template>
-  <button :class="styles.button">
+  <button :class="[styles.classHash,styles.button]">
     <slot />
   </button>
 </template>
