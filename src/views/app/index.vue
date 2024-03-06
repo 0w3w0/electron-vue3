@@ -13,8 +13,6 @@ const onClick = (event: MouseEvent) => {
   const rect = ele.getBoundingClientRect();
   const x = rect.left + rect.width / 2;
   const y = rect.top + rect.height / 2;
-  // const x = event.clientX;
-  // const y = event.clientY;
   const endRadius = Math.hypot(
     Math.max(x, innerWidth - x),
     Math.max(y, innerHeight - y),

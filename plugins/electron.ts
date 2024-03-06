@@ -3,6 +3,7 @@ import { build } from 'esbuild';
 import { exec, ChildProcess } from 'child_process';
 import { spawn } from 'cross-spawn';
 import * as os from 'os';
+import * as fs from 'fs';
 
 export interface PluginOptions {
   main: {
@@ -60,6 +61,7 @@ const buildPreloads = async (opts: PluginOptions) => {
     platform: 'node',
     outfile: opts.preload.outfile,
     external: opts?.externals, // 排除打包的模块
+    plugins: opts?.plugins,
   });
 };
 
@@ -107,13 +109,13 @@ const devServer = (opts: PluginOptions): Plugin => {
     apply: 'serve',
     async configureServer(app: ViteDevServer) {
       server = app;
-      // preloads
       await buildPreloads(opts);
       await buildEntryPoints(opts);
       startFunc();
     },
     watchChange: async (id) => {
       if (!id.startsWith(process.cwd() + '/electron')) return;
+      await buildPreloads(opts);
       await buildEntryPoints(opts);
       killElectronProcess(electronProcess);
       electronProcess = runElectron(opts.main.outfile, url);
