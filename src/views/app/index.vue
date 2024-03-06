@@ -8,8 +8,12 @@ const btnLabel = ref('D');
 const styles = useAppStyle();
 const themeToken = cssinjs.theme;
 const onClick = (event: MouseEvent) => {
-  const x = event.clientX;
-  const y = event.clientY;
+  const ele = event.target as HTMLElement;
+  const rect = ele.getBoundingClientRect();
+  const x = rect.left + rect.width / 2;
+  const y = rect.top + rect.height / 2;
+  // const x = event.clientX;
+  // const y = event.clientY;
   const endRadius = Math.hypot(
     Math.max(x, innerWidth - x),
     Math.max(y, innerHeight - y),
@@ -28,8 +32,8 @@ const onClick = (event: MouseEvent) => {
 </script>
 
 <template>
-  <div :class="[styles.classHash,styles.wrapper]">
-    <Button class="btn" @click="onClick">{{btnLabel}}</Button>
+  <div :class="[styles.classHash, styles.wrapper]">
+    <Button class="btn" @click="onClick">{{ btnLabel }}</Button>
   </div>
 </template>
 
