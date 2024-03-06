@@ -1,17 +1,19 @@
 import { cssinjs } from '@/theme';
 
 export const useButtonStyles = () => {
+  const size = '48px';
   return cssinjs.createStyle('Button', ({ update }) => {
     update(false);
     return {
       button: {
         display: 'inline-block',
         padding: '0 15px',
-        height: '32px',
-        lineHeight: '32px',
+        height: size,
+        width: size,
+        lineHeight: size,
         fontSize: '14px',
         fontWeight: 500,
-        borderRadius: '6px',
+        borderRadius: '50rem',
         cursor: 'pointer',
         transition: 'all 0.3s',
         userSelect: 'none',

@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import { cssinjs } from '@/theme';
 import { useAppStyle, useTheme } from './style';
 import Button from '@/components/button/Button.vue';
 
+const btnLabel = ref('D');
 const styles = useAppStyle();
 const themeToken = cssinjs.theme;
 const onClick = (event: MouseEvent) => {
@@ -14,8 +16,10 @@ const onClick = (event: MouseEvent) => {
   );
   useTheme(x, y, endRadius, (theme) => {
     if (theme === 'dark') {
+      btnLabel.value = 'L';
       themeToken.background = '#000';
     } else {
+      btnLabel.value = 'D';
       themeToken.background = '#fff';
     }
     cssinjs.updateTheme(themeToken);
@@ -25,7 +29,7 @@ const onClick = (event: MouseEvent) => {
 
 <template>
   <div :class="[styles.classHash,styles.wrapper]">
-    <Button class="btn" @click="onClick">Theme</Button>
+    <Button class="btn" @click="onClick">{{btnLabel}}</Button>
   </div>
 </template>
 
