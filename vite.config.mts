@@ -17,14 +17,20 @@ export default defineConfig({
   },
   plugins: [
     vue(),
-    optimizer(getReplacer({
-      externalsModules: ["fs"],
-      electronModules: ["ipcRenderer"],
-    })),
+    // optimizer(getReplacer({
+    //   externalsModules: ["fs"],
+    //   electronModules: ["ipcRenderer"],
+    // })),
     electron({
-      entryPoints: ["electron/main.ts"],
-      outfile: "dist/main.js",
-      externals:["electron"]
+      main: {
+        entryPoints: ["electron/main.ts"],
+        outfile: "dist/main.js",
+      },
+      preload: {
+        entryPoints: ["electron/preload.ts"],
+        outfile: "dist/preload.js",
+      },
+      externals:["electron"],
     }),
   ],
   resolve: {

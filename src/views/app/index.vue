@@ -8,6 +8,7 @@ const btnLabel = ref('D');
 const styles = useAppStyle();
 const themeToken = cssinjs.theme;
 const onClick = (event: MouseEvent) => {
+  window.electronAPI.testIPC();
   const ele = event.target as HTMLElement;
   const rect = ele.getBoundingClientRect();
   const x = rect.left + rect.width / 2;

@@ -5,10 +5,16 @@ import { spawn } from 'cross-spawn';
 import * as os from 'os';
 
 export interface PluginOptions {
-  entryPoints: string[];
+  main: {
+    entryPoints: string[];
+    outfile: string;
+  };
+  preload?: {
+    entryPoints: string[];
+    outfile: string;
+  };
   externals?: string[];
   plugins?: any[];
-  outfile: string;
 }
 
 export let electron = (opts: PluginOptions): Plugin[] => {
@@ -35,14 +41,25 @@ const killElectronProcess = (electronProcess: ChildProcess | null) => {
   }
 };
 
-const buildFunc = async (opts: PluginOptions) => {
+const buildEntryPoints = async (opts: PluginOptions) => {
   await build({
-    entryPoints: opts.entryPoints,
+    entryPoints: opts.main.entryPoints,
     bundle: true,
     platform: 'node',
-    outfile: opts.outfile,
+    outfile: opts.main.outfile,
     external: opts?.externals, // 排除打包的模块
     plugins: opts?.plugins,
+  });
+};
+
+const buildPreloads = async (opts: PluginOptions) => {
+  if (!opts.preload) return;
+  await build({
+    entryPoints: opts.preload.entryPoints,
+    bundle: true,
+    platform: 'node',
+    outfile: opts.preload.outfile,
+    external: opts?.externals, // 排除打包的模块
   });
 };
 
@@ -73,7 +90,7 @@ const devServer = (opts: PluginOptions): Plugin => {
       // 判断是否是electron启动
       if (process.env.ELECTRON_START_URL) return;
       url = `${protocol}://${host}:${port}`;
-      electronProcess = runElectron(opts.outfile, url);
+      electronProcess = runElectron(opts.main.outfile, url);
     });
     httpServer.once('close', () => {
       console.log('httpServer close');
@@ -90,14 +107,16 @@ const devServer = (opts: PluginOptions): Plugin => {
     apply: 'serve',
     async configureServer(app: ViteDevServer) {
       server = app;
-      await buildFunc(opts);
+      // preloads
+      await buildPreloads(opts);
+      await buildEntryPoints(opts);
       startFunc();
     },
     watchChange: async (id) => {
       if (!id.startsWith(process.cwd() + '/electron')) return;
-      await buildFunc(opts);
+      await buildEntryPoints(opts);
       killElectronProcess(electronProcess);
-      electronProcess = runElectron(opts.outfile, url);
+      electronProcess = runElectron(opts.main.outfile, url);
     },
   };
 };
@@ -107,7 +126,8 @@ const prodBuild = (opts: PluginOptions): Plugin => {
     name: 'electron-prod-build',
     apply: 'build',
     buildEnd: async () => {
-      await buildFunc(opts);
+      await buildPreloads(opts);
+      await buildEntryPoints(opts);
     },
   };
 };

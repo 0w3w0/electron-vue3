@@ -24,8 +24,7 @@ export function createMainWindow() {
     minHeight: 540,
     center: true,
     webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false,
+      preload: join(__dirname, 'preload.js'),
     },
     frame: false,
     // windows右上角按钮
@@ -35,10 +34,10 @@ export function createMainWindow() {
     // macos左上角按钮
     titleBarStyle: 'hidden',
     // macos左上角按钮位置
-    trafficLightPosition: {
-      x: 3,
-      y: 5,
-    },
+    // trafficLightPosition: {
+    //   x: 3,
+    //   y: 5,
+    // },
   };
   const win = new BrowserWindow(opts);
   win.loadURL(getUrl());
